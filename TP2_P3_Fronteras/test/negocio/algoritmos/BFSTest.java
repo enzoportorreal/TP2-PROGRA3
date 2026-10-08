@@ -1,0 +1,106 @@
+package negocio.algoritmos;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import negocio.grafos.AssertAuxiliar;
+import negocio.grafos.Grafo;
+
+public class BFSTest 
+{
+	private BFS bfs = new BFS();
+	private AssertAuxiliar auxiliar = new AssertAuxiliar();
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void grafoNullTest() 
+	{
+		bfs.esConexo(null);
+	}
+
+	@Test
+	public void grafoVacioTest() 
+	{
+		assertTrue(bfs.esConexo(new Grafo(0)));
+	}
+	
+	@Test
+	public void grafoUnVerticeTest() 
+	{
+		assertTrue(bfs.esConexo(new Grafo(1)));
+	}
+	
+	@Test
+	public void grafoDosVerticesAisladosTest() 
+	{
+		assertFalse(bfs.esConexo(new Grafo(2)));
+	}
+	
+	@Test
+	public void grafoDosVerticesConexoTest() 
+	{
+		Grafo g = new Grafo(2);
+		g.agregarArista(0, 1, 1); 
+		assertTrue(bfs.esConexo(g));
+	}
+	
+	@Test
+	public void grafoInconexoTest() 
+	{
+		Grafo g = inicializarGrafoInconexo();
+		assertFalse(bfs.esConexo(g));
+	}
+	
+	@Test
+	public void grafoCompletoTest() 
+	{
+		Grafo g = inicializarGrafoCompleto();
+		assertTrue(bfs.esConexo(g));
+	}
+	
+	@Test
+	public void alcanzablesGrafoCompletoTest() 
+	{
+		Grafo g = inicializarGrafoCompleto();
+		
+		int[] esperado = {0, 1, 2, 3};
+		auxiliar.iguales(esperado, bfs.alcanzables(g, 0)); 
+	}
+	
+	@Test
+	public void alcanzablesInconexoTest() 
+	{
+		Grafo g = inicializarGrafoInconexo();
+		
+		int[] esperado = {0, 1, 2, 3, 4};
+		auxiliar.iguales(esperado, bfs.alcanzables(g, 0));
+	}
+	
+	private Grafo inicializarGrafoInconexo() 
+	{
+		Grafo g = new Grafo(7);
+		
+		g.agregarArista(0, 1, 1);
+		g.agregarArista(0, 2, 1);
+		g.agregarArista(1, 2, 1);
+		g.agregarArista(1, 3, 1);
+		g.agregarArista(2, 4, 1);
+		g.agregarArista(3, 4, 1);
+		g.agregarArista(5, 6, 1);
+		
+		return g;		
+	}
+	
+	private Grafo inicializarGrafoCompleto() 
+	{
+		Grafo g = new Grafo(4);
+		
+		g.agregarArista(0, 1, 1);
+		g.agregarArista(1, 2, 1);
+		g.agregarArista(2, 3, 1);
+		g.agregarArista(0, 3, 1);
+		g.agregarArista(0, 2, 1);
+		g.agregarArista(1, 3, 1);
+		
+		return g;		
+	}
+}

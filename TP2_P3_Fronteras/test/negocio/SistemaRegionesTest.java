@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class SistemaRegionesTest {
 
-    // ---------- registrar fronteras ----------
+    //registrar fronteras
 
     @Test(expected = IllegalArgumentException.class)
     public void fronteraConBucleTest() {
@@ -56,7 +56,7 @@ public class SistemaRegionesTest {
         assertEquals(3, sistema.cantidadProvincias());
     }
 
-    // ---------- conexidad ----------
+    //conexidad
 
     @Test
     public void grafoConexoTest() {
@@ -71,7 +71,7 @@ public class SistemaRegionesTest {
         assertFalse(sistema.esGrafoConexo());
     }
 
-    // ---------- generar regiones ----------
+    //generar regiones
 
     @Test(expected = IllegalArgumentException.class)
     public void kIgualACeroTest() {
@@ -128,7 +128,7 @@ public class SistemaRegionesTest {
         assertFalse(sistema.existeFronteraResultante(0, 1));
     }
 
-    // ---------- datos reales (necesita provincias.json en la raiz del proyecto) ----------
+    //datos reales (necesita provincias.json en la raiz del proyecto)
 
     @Test
     public void datosDelJSONFormanUnGrafoConexoTest() {
@@ -138,7 +138,7 @@ public class SistemaRegionesTest {
         assertTrue(sistema.esGrafoConexo());
     }
 
-    // ---------- auxiliar: 0 - 1 - 2 - 3 con pesos 10, 100, 10 ----------
+    //auxiliar: 0 - 1 - 2 - 3 con pesos 10, 100, 10
 
     private SistemaRegiones crearSistemaEnLinea() {
         SistemaRegiones sistema = new SistemaRegiones(4);

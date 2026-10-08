@@ -14,9 +14,11 @@ public class CargadorDeDatosTest {
           + "    { \"id\": 1, \"nombre\": \"B\", \"lat\": -31.0, \"lon\": -61.0 } ],"
           + "  \"fronteras\": [ { \"origen\": 0, \"destino\": 1, \"peso\": 7 } ] }";
 
+    private CargadorDeDatos cargador = new CargadorDeDatos();
+
     @Test
     public void cargarJsonValidoTest() {
-        DatosGrafoJSON datos = CargadorDeDatos.cargar(new StringReader(JSON_VALIDO));
+        DatosGrafoJSON datos = cargador.cargar(new StringReader(JSON_VALIDO));
 
         assertEquals(2, datos.getProvincias().size());
         assertEquals("A", datos.getProvincias().get(0).getNombre());
@@ -27,27 +29,27 @@ public class CargadorDeDatosTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void listaDeProvinciasNoSePuedeModificarTest() {
-        DatosGrafoJSON datos = CargadorDeDatos.cargar(new StringReader(JSON_VALIDO));
+        DatosGrafoJSON datos = cargador.cargar(new StringReader(JSON_VALIDO));
         datos.getProvincias().clear();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void jsonMalFormadoTest() {
-        CargadorDeDatos.cargar(new StringReader("esto no es json"));
+        cargador.cargar(new StringReader("esto no es json"));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void jsonVacioTest() {
-        CargadorDeDatos.cargar(new StringReader(""));
+        cargador.cargar(new StringReader(""));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void jsonSinProvinciasTest() {
-        CargadorDeDatos.cargar(new StringReader("{ \"fronteras\": [] }"));
+        cargador.cargar(new StringReader("{ \"fronteras\": [] }"));
     }
 
     @Test(expected = IOException.class)
     public void archivoInexistenteTest() throws IOException {
-        CargadorDeDatos.cargarDesdeArchivo("no-existe.json");
+        cargador.cargarDesdeArchivo("no-existe.json");
     }
 }

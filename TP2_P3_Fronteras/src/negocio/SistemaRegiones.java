@@ -17,6 +17,10 @@ public class SistemaRegiones {
 
     private static final String ARCHIVO_PROVINCIAS = "provincias.json";
 
+    private final BFS bfs = new BFS();
+    private final Regionalizador regionalizador = new Regionalizador();
+    private final CargadorDeDatos cargador = new CargadorDeDatos();
+
     private Grafo grafo;
     private Grafo grafoResultante;
     private Map<Integer, Provincia> provincias;
@@ -26,7 +30,7 @@ public class SistemaRegiones {
         cargarDatosDelArchivo();
     }
 
-    // Sistema con N provincias ficticias y sin fronteras (no lee ningun archivo)
+    // Sistema con N provincias ficticias y sin fronteras
     public SistemaRegiones(int cantidadProvincias) {
         provincias = new HashMap<>();
         grafo = new Grafo(cantidadProvincias);
@@ -41,7 +45,7 @@ public class SistemaRegiones {
 
     public void registrarFrontera(int id1, int id2, int similaridad) {
         grafo.agregarArista(id1, id2, similaridad);
-        grafoResultante = null; // las regiones calculadas quedaron desactualizadas
+        grafoResultante = null;
     }
 
     public void reiniciarAristas() {
@@ -70,7 +74,7 @@ public class SistemaRegiones {
     }
 
     public boolean esGrafoConexo() {
-        return BFS.esConexo(grafo);
+        return bfs.esConexo(grafo);
     }
 
     public List<List<Integer>> generarRegiones(int k) {
@@ -80,14 +84,14 @@ public class SistemaRegiones {
         if (!esGrafoConexo())
             throw new IllegalStateException("El grafo debe ser conexo para generar regiones");
 
-        grafoResultante = Regionalizador.obtenerBosqueConKRegiones(grafo, k);
-        return Regionalizador.encontrarRegiones(grafoResultante);
+        grafoResultante = regionalizador.obtenerBosqueConKRegiones(grafo, k);
+        return regionalizador.encontrarRegiones(grafoResultante);
     }
 
     private void cargarDatosDelArchivo() {
         DatosGrafoJSON datos;
         try {
-            datos = CargadorDeDatos.cargarDesdeArchivo(ARCHIVO_PROVINCIAS);
+            datos = cargador.cargarDesdeArchivo(ARCHIVO_PROVINCIAS);
         } catch (IOException e) {
             throw new IllegalStateException("No se pudo leer el archivo " + ARCHIVO_PROVINCIAS, e);
         }

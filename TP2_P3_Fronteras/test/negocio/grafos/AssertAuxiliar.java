@@ -7,7 +7,7 @@ import java.util.Set;
 public class AssertAuxiliar
 {
 	// Verifica que sean iguales como conjuntos
-	public static void iguales(int[] esperado, Set<Integer> obtenido)
+	public void iguales(int[] esperado, Set<Integer> obtenido)
 	{
 		assertEquals(esperado.length, obtenido.size());
 		

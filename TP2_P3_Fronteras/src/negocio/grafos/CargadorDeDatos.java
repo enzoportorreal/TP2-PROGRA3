@@ -8,13 +8,13 @@ import java.io.Reader;
 
 public class CargadorDeDatos {
 
-    public static DatosGrafoJSON cargarDesdeArchivo(String rutaArchivo) throws IOException {
+    public DatosGrafoJSON cargarDesdeArchivo(String rutaArchivo) throws IOException {
         try (Reader lector = new FileReader(rutaArchivo)) {
             return cargar(lector);
         }
     }
 
-    public static DatosGrafoJSON cargar(Reader lector) {
+    public DatosGrafoJSON cargar(Reader lector) {
         DatosGrafoJSON datos;
         try {
             datos = new Gson().fromJson(lector, DatosGrafoJSON.class);

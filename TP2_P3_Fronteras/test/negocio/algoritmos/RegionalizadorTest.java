@@ -9,6 +9,8 @@ import negocio.grafos.Grafo;
 
 public class RegionalizadorTest {
 
+    private Regionalizador regionalizador = new Regionalizador();
+
     @Test
     public void unaSolaRegionTest() {
         List<List<Integer>> regiones = regionesPara(crearCaminoDeCuatro(), 1);
@@ -77,7 +79,7 @@ public class RegionalizadorTest {
 
     @Test
     public void bosqueNoContieneLaAristaMasPesadaDelArbolTest() {
-        Grafo bosque = Regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 2);
+        Grafo bosque = regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 2);
 
         assertFalse(bosque.existeArista(1, 2));
         assertTrue(bosque.existeArista(0, 1));
@@ -86,15 +88,15 @@ public class RegionalizadorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void kIgualACeroTest() {
-        Regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 0);
+        regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void kMayorALaCantidadDeVerticesTest() {
-        Regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 5);
+        regionalizador.obtenerBosqueConKRegiones(crearCaminoDeCuatro(), 5);
     }
 
-    // ---------- auxiliares ----------
+    //auxiliares
 
     // 0 - 1 - 2 - 3 con pesos 10, 20, 15
     private Grafo crearCaminoDeCuatro() {
@@ -106,6 +108,6 @@ public class RegionalizadorTest {
     }
 
     private List<List<Integer>> regionesPara(Grafo grafo, int k) {
-        return Regionalizador.encontrarRegiones(Regionalizador.obtenerBosqueConKRegiones(grafo, k));
+        return regionalizador.encontrarRegiones(regionalizador.obtenerBosqueConKRegiones(grafo, k));
     }
 }

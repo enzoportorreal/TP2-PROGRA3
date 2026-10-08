@@ -5,6 +5,8 @@ import org.junit.Test;
 
 public class VecinosTest{
 	
+	private AssertAuxiliar auxiliar = new AssertAuxiliar();
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void verticeNegativoTest()
 	{
@@ -36,7 +38,7 @@ public class VecinosTest{
 		grafo.agregarArista(1, 3, 10);
 		
 		int[] esperado = {0, 2, 3};
-		AssertAuxiliar.iguales(esperado, grafo.vecinos(1));
+		auxiliar.iguales(esperado, grafo.vecinos(1));
 	}
 	
 	@Test
@@ -49,6 +51,6 @@ public class VecinosTest{
 		grafo.agregarArista(2, 4, 10);
 		
 		int[] esperados = {1, 2};
-		AssertAuxiliar.iguales(esperados, grafo.vecinos(3));
+		auxiliar.iguales(esperados, grafo.vecinos(3));
 	}
 }

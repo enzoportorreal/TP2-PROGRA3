@@ -48,9 +48,7 @@ public class VentanaPrincipal extends JFrame {
         mostrarGrafoSinRegiones();
     }
 
-    // ------------------------------------------------------------------
     // Construccion de la interfaz
-    // ------------------------------------------------------------------
 
     private void configurarVentana() {
         try {
@@ -153,7 +151,9 @@ public class VentanaPrincipal extends JFrame {
 
     private void crearTablaDeRegiones() {
         modeloTabla = new DefaultTableModel(new Object[] { "Región", "Provincias" }, 0) {
-            @Override
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public boolean isCellEditable(int fila, int columna) {
                 return false;
             }
@@ -175,9 +175,7 @@ public class VentanaPrincipal extends JFrame {
         mapViewer.setDisplayPosition(new Coordinate(-43.0, -64.0), 4);
     }
 
-    // ------------------------------------------------------------------
     // Acciones de la interfaz
-    // ------------------------------------------------------------------
 
     private void actualizarControlesManuales() {
         boolean esManual = radioManual.isSelected();
@@ -284,9 +282,7 @@ public class VentanaPrincipal extends JFrame {
         JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
     }
 
-    // ------------------------------------------------------------------
     // Dibujo del mapa (regiones == null: todavia no se calcularon regiones)
-    // ------------------------------------------------------------------
 
     private void actualizarMapa(List<List<Integer>> regiones) {
         mapViewer.removeAllMapMarkers();

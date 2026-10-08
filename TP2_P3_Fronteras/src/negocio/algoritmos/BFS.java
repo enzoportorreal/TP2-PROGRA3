@@ -8,14 +8,14 @@ import negocio.grafos.Grafo;
 
 public class BFS {
 
-    public static boolean esConexo(Grafo grafo) {
+    public boolean esConexo(Grafo grafo) {
         if (grafo == null)
             throw new IllegalArgumentException("El grafo no puede ser null.");
 
         return grafo.tamano() == 0 || alcanzables(grafo, 0).size() == grafo.tamano();
     }
 
-    public static Set<Integer> alcanzables(Grafo grafo, int origen) {
+    public Set<Integer> alcanzables(Grafo grafo, int origen) {
         Set<Integer> alcanzados = new HashSet<>();
         Queue<Integer> pendientes = new LinkedList<>();
 

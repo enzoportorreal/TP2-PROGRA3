@@ -5,10 +5,10 @@ import java.util.List;
 import negocio.grafos.Arista;
 import negocio.grafos.Grafo;
 
-// Prim con arreglo simple sobre matriz de adyacencia: O(n^2)
+// Prim con arreglo simple sobre matriz de adyacencia
 public class AlgoritmoPrim {
 
-    public static List<Arista> ejecutar(Grafo grafo) {
+    public List<Arista> ejecutar(Grafo grafo) {
         int n = grafo.tamano();
         List<Arista> arbol = new ArrayList<>();
         if (n <= 1)
@@ -48,7 +48,7 @@ public class AlgoritmoPrim {
         return arbol;
     }
 
-    private static int verticePendienteMasCercano(int[] distancias, boolean[] visitados) {
+    private int verticePendienteMasCercano(int[] distancias, boolean[] visitados) {
         int minimo = Integer.MAX_VALUE;
         int elegido = -1;
         for (int v = 0; v < distancias.length; v++) {
